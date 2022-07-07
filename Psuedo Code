@@ -1,0 +1,78 @@
+NEAREST_NEIGHBOR(s, G) // let s be the source vertex and G be a complete graph
+
+        if G.size > 1  // Base Case
+
+            reset all discover values
+            let Q be a new queue of vertices
+
+            Q.offer(s)
+
+            let v be a vertex
+            let u be a vertex
+
+            while Q.size < G.size()
+
+                u = Q.peek
+
+                for i = 0 to G.size
+
+                    v = min{u, G[i]}
+                    Q.poll(v)
+
+                u.visited
+                v.visited
+
+            return Q
+
+NEAREST_NEIGHBOR_REPETITIVE(s, G)   // s = source vertex, G = complete graph
+
+    let T be a new tour
+    let D = INF
+
+    if G.size > 1   	            // base case
+
+        for each v in G
+
+            let t be NEAREST_NEIGHBOR(v, G)
+
+            if t.distance < D
+
+                T = t
+                D = d
+    return T, D
+
+TWO_OPTIMAL(T, D)
+
+    m = 0
+
+    let t = new tour
+    let d = INF
+
+    while m < 2
+
+        for i = 0 to T.size - 1
+
+            for k = i to T.size
+
+                SWAP(T, t, i, k)
+
+                if d < D
+
+                    T = t
+                    D = d
+                    m = 0
+         m++
+    return T, D
+
+SWAP(T, t, i, k)
+
+    for c = 0 to i - 1
+        t[c] = T[c]
+
+    d = 0
+    for c = i to k
+        t[c] = T[k - d]
+        d++
+
+    for c = k + 1 to T.length
+        t[c] = T[c]
